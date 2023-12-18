@@ -1,6 +1,6 @@
 export default function HeroSection() {
   return (
-    <section className="flex w-full justify-between px-16">
+    <section className="flex w-full justify-between px-16 pt-24">
       <div className="flex gap-2 flex-col">
         <div>
           <h1 className="text-xl font-semibold leading-[48px]">
