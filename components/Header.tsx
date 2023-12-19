@@ -34,7 +34,7 @@ export default function Header() {
         height={72}
         className="col-span-2 mt-6"
       />
-      <div className="flex bg-[#9D96A21A] backdrop-blur-xl border-t border-t-[#C1C1C140] items-center gap-16 px-8 rounded-3xl col-span-8 h-[54px]">
+      <div className="flex bg-[#9D96A21A] backdrop-blur-xl border-t border-t-[#C1C1C140] items-center gap-16 px-8 rounded-4xl col-span-8 h-[54px]">
         <div className="flex gap-2 mr-auto">
           <div className="w-2 h-2 bg-[#BBBBBB] rounded-full" />
           <div className="w-2 h-2 bg-[#BBBBBB] rounded-full" />
@@ -56,7 +56,7 @@ export default function Header() {
         })}
       </div>
 
-      <Button className="ml-auto col-span-2 h-[54px] rounded-3xl font-bold uppercase">
+      <Button className="ml-auto col-span-2 h-[54px] rounded-4xl font-bold uppercase">
         Get In Touch!
       </Button>
     </header>

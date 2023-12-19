@@ -1,4 +1,4 @@
-const { fontFamily } = require("tailwindcss/defaultTheme");
+const { fontFamily, borderRadius } = require("tailwindcss/defaultTheme");
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -16,6 +16,10 @@ module.exports = {
       screens: {
         "2xl": "1440px",
       },
+    },
+    borderRadius: {
+      ...borderRadius,
+      "4xl": "32px",
     },
     extend: {
       fontFamily: {
