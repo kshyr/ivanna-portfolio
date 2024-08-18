@@ -1,15 +1,16 @@
-import type {StructureResolver} from 'sanity/structure'
+import type { StructureResolver } from "sanity/structure";
+
+export const homePageSingletonName = "homePage";
+export const aboutPageSingletonName = "aboutPage";
 
 // https://www.sanity.io/docs/structure-builder-cheat-sheet
-export const structure: StructureResolver = (S) =>
-  S.list()
-    .title('Blog')
+export const structure: StructureResolver = (S) => {
+  return S.list()
+    .title("Portfolio")
     .items([
-      S.documentTypeListItem('post').title('Posts'),
-      S.documentTypeListItem('category').title('Categories'),
-      S.documentTypeListItem('author').title('Authors'),
-      S.divider(),
-      ...S.documentTypeListItems().filter(
-        (item) => item.getId() && !['post', 'category', 'author'].includes(item.getId()!),
-      ),
-    ])
+      S.documentTypeListItem("post")
+        .title("Home")
+        .schemaType("post")
+        .child(S.editor().id("post").schemaType("post").documentId("post")),
+    ]);
+};

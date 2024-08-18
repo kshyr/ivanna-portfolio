@@ -1,8 +1,9 @@
 import { BsFiletypeDoc } from "react-icons/bs";
 import { defineArrayMember, defineField, defineType } from "sanity";
+import { homePageSingletonName } from "../structure";
 
-export const postType = defineType({
-  name: "post",
+export const homePageSingleton = defineType({
+  name: homePageSingletonName,
   title: "Post",
   type: "document",
   icon: BsFiletypeDoc,
@@ -19,11 +20,6 @@ export const postType = defineType({
       },
     }),
     defineField({
-      name: "author",
-      type: "reference",
-      to: { type: "author" },
-    }),
-    defineField({
       name: "mainImage",
       type: "image",
       options: {
@@ -36,11 +32,6 @@ export const postType = defineType({
           title: "Alternative text",
         },
       ],
-    }),
-    defineField({
-      name: "categories",
-      type: "array",
-      of: [defineArrayMember({ type: "reference", to: { type: "category" } })],
     }),
     defineField({
       name: "publishedAt",
