@@ -1,33 +1,62 @@
 "use client";
+import { useBreakpoint } from "@/lib/hooks";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import { BsCaretRightFill, BsCaretLeftFill } from "react-icons/bs";
 
-const images = ["/frame1.png", "/frame2.png", "/frame3.png"];
-
 const xSpeed = 400;
 const scaleFactor = 0.8;
 
-export default function Carousel() {
+export default function Carousel({ images }: { images: string[] }) {
   const [imageIndex, setImageIndex] = useState(0);
   const [direction, setDirection] = useState("right");
-  const onPrevClick = () => {
+  const onPrev = () => {
     setDirection("left");
     setImageIndex((prev) => (prev - 1 + images.length) % images.length);
   };
-  const onNextClick = () => {
+  const onNext = () => {
     setDirection("right");
     setImageIndex((prev) => (prev + 1) % images.length);
   };
 
+  const { isBelowMd } = useBreakpoint("md");
+
+  return isBelowMd ? (
+    <MobileCarousel
+      images={images}
+      imageIndex={imageIndex}
+      onPrev={onPrev}
+      onNext={onNext}
+    />
+  ) : (
+    <DesktopCarousel
+      images={images}
+      imageIndex={imageIndex}
+      onPrev={onPrev}
+      onNext={onNext}
+    />
+  );
+}
+
+type CarouselProps = {
+  images: string[];
+  imageIndex: number;
+  onPrev: () => void;
+  onNext: () => void;
+};
+
+function MobileCarousel({ images, onPrev, onNext, imageIndex }: CarouselProps) {
   return (
-    <motion.div className="max-w-md flex justify-center items-center gap-8 ">
-      <CarouselButton onClick={onPrevClick} />
+    <motion.div className="flex justify-center items-center gap-8 ">
       <AnimatePresence mode="wait">
         <motion.div
           key={imageIndex}
-          className={cn("bg-background p-8 rounded-[40px]", "aspect-video")}
+          className={cn(
+            "bg-background p-8 rounded-[40px]",
+            "aspect-video",
+            "md:min-w-[375px] md:min-h-[570px]",
+          )}
         >
           <motion.img
             src={images[imageIndex]}
@@ -47,7 +76,47 @@ export default function Carousel() {
           />
         </motion.div>
       </AnimatePresence>
-      <CarouselButton onClick={onNextClick} flip />
+    </motion.div>
+  );
+}
+
+function DesktopCarousel({
+  images,
+  onPrev,
+  onNext,
+  imageIndex,
+}: CarouselProps) {
+  return (
+    <motion.div className="max-w-md flex justify-center items-center gap-8 ">
+      <CarouselButton onClick={onPrev} />
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={imageIndex}
+          className={cn(
+            "bg-background p-8 rounded-[40px]",
+            "aspect-video",
+            "xl:min-w-[934px] 2xl:min-h-[570px]",
+          )}
+        >
+          <motion.img
+            src={images[imageIndex]}
+            className="w-full h-full"
+            initial={{
+              opacity: 0,
+            }}
+            animate={{ opacity: 1 }}
+            exit={{
+              opacity: 0,
+            }}
+            transition={{
+              type: "tween",
+              duration: 0.4,
+              ease: "easeInOut",
+            }}
+          />
+        </motion.div>
+      </AnimatePresence>
+      <CarouselButton onClick={onNext} flip />
     </motion.div>
   );
 }

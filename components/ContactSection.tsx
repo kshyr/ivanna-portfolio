@@ -29,7 +29,7 @@ export default function ContactSection() {
     <section className="w-full flex flex-col pb-8 pt-28">
       <div className="flex flex-col items-center justify-center">
         <h3 className="text-xl font-semibold">
-          Reach me out!{" "}
+          Reach out to me!{" "}
           <Image
             src="/logo_cat_wide.svg"
             alt="logo-cat-wide"

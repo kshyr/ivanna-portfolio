@@ -2,6 +2,7 @@ import { cn } from "@/lib/utils";
 import Carousel from "./Carousel";
 
 export default function SkillsSection() {
+  const images = ["/frame1.png", "/frame2.png", "/frame3.png"];
   return (
     <section className="w-full flex flex-col px-16">
       <div className="py-16">
@@ -20,7 +21,7 @@ export default function SkillsSection() {
           "relative before:w-screen before:bg-foreground before:h-full before:absolute before:-z-20",
         )}
       >
-        <Carousel />
+        <Carousel images={images} />
       </div>
     </section>
   );
