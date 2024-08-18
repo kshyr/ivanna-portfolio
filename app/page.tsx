@@ -3,6 +3,7 @@ import ProjectsSection from "@/components/ProjectsSection";
 import Header from "@/components/Header";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
+import SkillsSection from "@/components/SkillsSection";
 
 export default function Home() {
   return (
@@ -10,6 +11,7 @@ export default function Home() {
       <Header />
       <HeroSection />
       <ProjectsSection />
+      <SkillsSection />
       <div className="px-32">
         <ContactSection />
         <Footer />

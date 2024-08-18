@@ -18,10 +18,6 @@ const navItems: NavItem[] = [
     href: "/",
     title: "Resume",
   },
-  {
-    href: "/",
-    title: "About Me",
-  },
 ];
 
 export default function Header() {

@@ -60,7 +60,7 @@ export default function ContactSection() {
         </div>
       </div>
       <Button className="ml-auto p-6 rounded-4xl font-bold uppercase">
-        To the resume
+        Resume {">"}
       </Button>
     </section>
   );
