@@ -52,7 +52,13 @@ export default function Carousel() {
   );
 }
 
-function CarouselButton({ flip = false, onClick }) {
+function CarouselButton({
+  flip = false,
+  onClick,
+}: {
+  flip?: boolean;
+  onClick: () => void;
+}) {
   return (
     <div
       className={cn(
@@ -82,7 +88,7 @@ function CarouselButton({ flip = false, onClick }) {
   );
 }
 
-function ButtonIcon({ flip }) {
+function ButtonIcon({ flip }: { flip: boolean }) {
   const caretTw = cn("fill-foreground");
   return flip ? (
     <BsCaretRightFill size={32} className={caretTw} />
