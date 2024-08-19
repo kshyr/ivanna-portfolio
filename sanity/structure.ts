@@ -8,9 +8,15 @@ export const structure: StructureResolver = (S) => {
   return S.list()
     .title("Portfolio")
     .items([
-      S.documentTypeListItem("post")
+      S.documentTypeListItem(homePageSingletonName)
         .title("Home")
-        .schemaType("post")
-        .child(S.editor().id("post").schemaType("post").documentId("post")),
+        .schemaType(homePageSingletonName)
+        .child(
+          S.editor()
+            .title("Home")
+            .id(homePageSingletonName)
+            .schemaType(homePageSingletonName)
+            .documentId(homePageSingletonName),
+        ),
     ]);
 };
