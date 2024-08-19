@@ -5,8 +5,9 @@ import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import SkillsSection from "@/components/SkillsSection";
 import { client } from "@/sanity/lib/client";
+import type { HomePage } from "@/sanity.types";
 
-async function getHomePageData() {
+async function getHomePageData(): Promise<HomePage> {
   const query = `
   *[_id == "homePage"]
   `;
