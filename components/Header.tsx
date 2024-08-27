@@ -1,12 +1,17 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { HomePage, internalGroqTypeReferenceTo } from "@/sanity.types";
 
 type NavItem = {
   href: string;
   title: string;
   current?: boolean;
 };
+
+interface HeaderProps {
+  resumePdf: HomePage["resumePdf"];
+}
 
 const navItems: NavItem[] = [
   {
@@ -20,7 +25,7 @@ const navItems: NavItem[] = [
   },
 ];
 
-export default function Header() {
+export default function Header({ resumePdf }: HeaderProps) {
   return (
     <header className="grid z-50 items-center grid-cols-12 sticky top-0 px-16 py-4 w-full">
       <Image
@@ -36,20 +41,22 @@ export default function Header() {
           <div className="w-2 h-2 bg-[#BBBBBB] rounded-full" />
           <div className="w-2 h-2 bg-[#BBBBBB] rounded-full" />
         </div>
-        {navItems?.map((navItem) => {
-          return (
-            <a
-              key={navItem.title}
-              href={navItem.href}
-              className={cn(
-                "text-sm text-[#7E7E7E]",
-                navItem.current && "text-[#BBBBBB] font-semibold",
-              )}
-            >
-              {navItem.title}
-            </a>
-          );
-        })}
+        {navItems?.map((navItem) => (
+          <a
+            key={navItem.title}
+            href={
+              navItem.title === "Resume"
+                ? resumePdf?.asset?.[internalGroqTypeReferenceTo]
+                : navItem.href
+            }
+            className={cn(
+              "text-sm text-[#7E7E7E]",
+              navItem.current && "text-[#BBBBBB] font-semibold",
+            )}
+          >
+            {navItem.title}
+          </a>
+        ))}
       </div>
 
       <Button className="ml-auto col-span-2 h-[54px] rounded-4xl font-bold uppercase">

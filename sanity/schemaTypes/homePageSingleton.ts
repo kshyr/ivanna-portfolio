@@ -9,8 +9,8 @@ export const homePageSingleton = defineType({
   icon: BsFiletypeDoc,
   fields: [
     defineField({
-      name: "resumeLink",
-      type: "url",
+      name: "resumePdf",
+      type: "file",
     }),
     defineField({
       name: "socialLinks",
@@ -18,7 +18,7 @@ export const homePageSingleton = defineType({
       fields: [
         defineField({
           name: "email",
-          type: "url",
+          type: "email",
         }),
         defineField({
           name: "linkedn",
@@ -127,6 +127,10 @@ export const homePageSingleton = defineType({
                   title: "Alternative text",
                 },
               ],
+            }),
+            defineField({
+              name: "url",
+              type: "url",
             }),
           ],
         }),
