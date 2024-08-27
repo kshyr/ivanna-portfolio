@@ -1,12 +1,21 @@
 import Image from "next/image";
 import { Button } from "./ui/button";
 import { HomePage } from "@/sanity.types";
+import { buildFileUrl, parseAssetId } from "@sanity/asset-utils";
+import sanityConfig from "@/sanity.config";
+import { getResumeURL } from "@/lib/utils";
 
 interface ContactSectionProps {
   socialLinks: HomePage["socialLinks"];
+  resumePdf: HomePage["resumePdf"];
 }
 
-export default function ContactSection({ socialLinks }: ContactSectionProps) {
+export default function ContactSection({
+  socialLinks,
+  resumePdf,
+}: ContactSectionProps) {
+  const resumeURL = getResumeURL(resumePdf);
+
   const links = [
     {
       handle: "instagram",
@@ -67,9 +76,11 @@ export default function ContactSection({ socialLinks }: ContactSectionProps) {
           ))}
         </div>
       </div>
-      <Button className="ml-auto p-6 rounded-4xl font-bold uppercase">
-        Resume {">"}
-      </Button>
+      <a href={`${resumeURL}`} target="_blank">
+        <Button className="ml-auto p-6 rounded-4xl font-bold uppercase">
+          Resume {">"}
+        </Button>
+      </a>
     </section>
   );
 }

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { cn, getResumeURL } from "@/lib/utils";
 import { HomePage, internalGroqTypeReferenceTo } from "@/sanity.types";
 
 type NavItem = {
@@ -26,6 +26,7 @@ const navItems: NavItem[] = [
 ];
 
 export default function Header({ resumePdf }: HeaderProps) {
+  const resumeURL = getResumeURL(resumePdf) as string;
   return (
     <header className="grid z-50 items-center grid-cols-12 sticky top-0 px-16 py-4 w-full">
       <Image
@@ -44,11 +45,8 @@ export default function Header({ resumePdf }: HeaderProps) {
         {navItems?.map((navItem) => (
           <a
             key={navItem.title}
-            href={
-              navItem.title === "Resume"
-                ? resumePdf?.asset?.[internalGroqTypeReferenceTo]
-                : navItem.href
-            }
+            href={navItem.title === "Resume" ? resumeURL : navItem.href}
+            target={navItem.title === "Resume" ? "_blank" : "_self"}
             className={cn(
               "text-sm text-[#7E7E7E]",
               navItem.current && "text-[#BBBBBB] font-semibold",

@@ -37,7 +37,10 @@ export default async function Home() {
         skillsImages={data.skillsImages}
       />
       <div className="px-32">
-        <ContactSection socialLinks={data.socialLinks} />
+        <ContactSection
+          socialLinks={data.socialLinks}
+          resumePdf={data.resumePdf}
+        />
         <Footer />
       </div>
     </main>

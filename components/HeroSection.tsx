@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
-import { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import { HomePage } from "@/sanity.types";
 
 interface HeroSectionProps {
@@ -21,11 +20,19 @@ export default function HeroSection({
           <h1 className="text-xl font-semibold leading-[48px]">
             Ivanna Pavlyk
           </h1>
-          <h2 className="text-xl font-semibold">{title}</h2>
+          <h2 className="text-xl font-semibold">
+            UX/UI
+            <Image
+              width={34}
+              height={51}
+              src="/logo_cat_narrow.svg"
+              alt="logo-cat-narrow"
+              className="inline mx-8 mb-2"
+            />
+            Designer
+          </h2>
         </div>
-        <h3 className="font-medium mt-1">
-          Designer and researcher based in Winnipeg, Canada
-        </h3>
+        <h3 className="font-medium mt-1">{title}</h3>
         <p className="max-w-xl opacity-70 text-sm">{heroParagraph}</p>
       </div>
       <div className="bg-foreground w-[530px] rounded-4xl flex items-center justify-center">

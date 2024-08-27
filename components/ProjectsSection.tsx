@@ -44,13 +44,15 @@ export default function ProjectsSection({
             className="flex flex-col col-span-1 row-span-1 w-full h-full"
           >
             <div className="bg-background rounded-4xl flex items-end justify-end p-8 h-full">
-              <Image
-                src={urlFor(project.image as SanityImageSource).url()}
-                alt={project?.title as string}
-                width={300}
-                height={200}
-                className="rounded-4xl"
-              />
+              {/*project.image && (
+                <Image
+                  src={urlFor(project.image)?.url()}
+                  alt={project?.title as string}
+                  width={300}
+                  height={200}
+                  className="rounded-4xl"
+                />
+              )*/}
             </div>
             <div className="flex gap-2 mt-4 items-center opacity-70">
               {project?.tags?.map((tag, i, arr) => (
