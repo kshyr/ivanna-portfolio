@@ -79,7 +79,7 @@ export default async function ProjectsSection({
           return (
             <a
               key={project?.title + "-" + i}
-              href={imageUrlObj.url}
+              href={imageUrlObj?.url as string}
               target="_blank"
               className="group"
             >
@@ -89,7 +89,7 @@ export default async function ProjectsSection({
                     "group transition-colors duration-300 w-full border border-black/25 rounded-4xl flex items-end justify-end h-full",
                     `group-hover:bg-[var(--hover-bg-color)]`,
                   )}
-                  style={{ "--hover-bg-color": bgColor }}
+                  style={{ "--hover-bg-color": bgColor } as React.CSSProperties}
                 >
                   <img
                     src={imageSrc}
