@@ -106,14 +106,14 @@ function DesktopCarousel({
           <motion.div
             key={imageIndex}
             className={cn(
-              "bg-background p-8 rounded-[40px]",
+              "bg-background p-4 xl:p-8 rounded-2xl xl:rounded-[40px]",
               "aspect-auto h-auto",
-              "base:min-w-[350px] md:min-w-[500px] lg:min-w-[700px] xl:min-w-[900px] 2xl:min-w-[970px]",
+              "min-w-[500px] md:min-w-[500px] lg:min-w-[700px] xl:min-w-[900px] 2xl:min-w-[970px]",
             )}
           >
             <motion.img
               src={images[imageIndex]}
-              className="w-full h-full"
+              className="w-full h-full min-h-[200px] lg:min-h-[350px] xl:min-h-[500px]"
               initial={{
                 opacity: 0,
               }}
@@ -145,7 +145,7 @@ function CarouselButton({
   return (
     <div
       className={cn(
-        "z-10 absolute flex justify-center items-center w-[110px] h-[470px] bg-background drop-shadow-2xl",
+        "z-10 absolute flex justify-center items-center w-[70px] h-[220px] lg:w-[100px] lg:h-[330px] xl:w-[110px] xl:h-[470px] bg-background drop-shadow-2xl",
         flip
           ? "rounded-r-[40px] rounded-l-[15px] right-0"
           : "rounded-l-[40px] rounded-r-[15px] left-0",
@@ -153,8 +153,8 @@ function CarouselButton({
     >
       <motion.button
         className={cn(
-          "h-20 w-20 bg-gradient-to-br rounded-full flex justify-center items-center active:scale-[0.9] active:shadow-none",
-          "relative before:w-[82px] before:bg-foreground before:h-[82px] before:absolute before:-z-20 before:top-[-1px] before:left-[-1px]",
+          "h-10 w-10 lg:h-20 lg:w-20 bg-gradient-to-br rounded-full flex justify-center items-center active:scale-[0.9] active:shadow-none",
+          "relative before:w-[42px] before:h-[42px] lg:before:w-[82px] lg:before:h-[82px]  before:bg-foreground  before:absolute before:-z-20 before:top-[-1px] before:left-[-1px]",
           "before:rounded-full before:bg-gradient-to-br",
           flip
             ? "before:from-background before:to-muted-foreground"

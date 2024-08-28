@@ -4,6 +4,9 @@ import { urlFor } from "@/sanity/lib/image";
 import { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import React from "react";
 import { HomePage } from "@/sanity.types";
+import { isImageSource } from "@sanity/asset-utils";
+import { homePageSingletonName } from "@/sanity/structure";
+import { client } from "@/sanity/lib/client";
 
 interface ProjectsSectionProps {
   projectsParagraphStart: HomePage["projectsParagraphStart"];
@@ -11,11 +14,37 @@ interface ProjectsSectionProps {
   projects: HomePage["projects"];
 }
 
-export default function ProjectsSection({
+type ProjectImageUrlObject = {
+  title: string;
+  imageUrl: string;
+  transitionBgColor: string;
+  url: string;
+};
+
+async function getImageUrls(): Promise<ProjectImageUrlObject[]> {
+  const query = `*[_type == "${homePageSingletonName}"][0]{
+    "titles": projects[].title,
+    "imageUrls":projects[].image.asset->url,
+    "transitionBgColors":projects[].image.transitionBgColor,
+    "urls":projects[].url
+  }`;
+  const data = await client.fetch(query);
+  const imageUrlObjs = data.imageUrls.map((url: string, i: number) => ({
+    title: data.titles[i],
+    imageUrl: url,
+    transitionBgColor: data.transitionBgColors[i],
+    url: data.urls[i],
+  }));
+  return imageUrlObjs;
+}
+
+export default async function ProjectsSection({
   projectsParagraphStart,
   projectsParagraphEnd,
   projects,
 }: ProjectsSectionProps) {
+  const imageUrlObjs = await getImageUrls();
+
   return (
     <section className="w-full flex flex-col px-4 xl:px-16">
       <div
@@ -40,35 +69,51 @@ export default function ProjectsSection({
           "relative before:w-screen before:bg-foreground before:h-full before:absolute before:-z-10",
         )}
       >
-        {projects?.map((project, i) => (
-          <div
-            key={project?.title + "-" + i}
-            className="flex flex-col col-span-1 row-span-1 w-full h-full min-h-[400px]"
-          >
-            <div className="bg-background rounded-4xl flex items-end justify-end p-8 h-full">
-              {/*project.image && (
-                <Image
-                  src={urlFor(project.image)?.url()}
-                  alt={project?.title as string}
-                  width={300}
-                  height={200}
-                  className="rounded-4xl"
-                />
-              )*/}
-            </div>
-            <div className="flex gap-2 mt-4 items-center opacity-70">
-              {project?.tags?.map((tag, i, arr) => (
-                <React.Fragment key={project?.title + "-" + i + tag}>
-                  <span className="uppercase">{tag}</span>
-                  {i !== arr.length - 1 && (
-                    <div className="w-[5px] h-[5px] bg-background rounded-full" />
+        {projects?.map((project, i) => {
+          const imageUrlObj = imageUrlObjs.find(
+            (obj) => obj.title === project.title,
+          );
+          let imageSrc =
+            imageUrlObj?.imageUrl ?? "https://placehold.co/600x400";
+          const bgColor = imageUrlObj?.transitionBgColor ?? "#000000";
+          return (
+            <a
+              key={project?.title + "-" + i}
+              href={imageUrlObj.url}
+              target="_blank"
+              className="group"
+            >
+              <div className="group flex flex-col col-span-1 row-span-1 w-full h-full min-h-[400px]">
+                <div
+                  className={cn(
+                    "group transition-colors duration-300 w-full border border-black/25 rounded-4xl flex items-end justify-end h-full",
+                    `group-hover:bg-[var(--hover-bg-color)]`,
                   )}
-                </React.Fragment>
-              ))}
-            </div>
-            <h3 className="text-[40px]">{project.title}</h3>
-          </div>
-        ))}
+                  style={{ "--hover-bg-color": bgColor }}
+                >
+                  <img
+                    src={imageSrc}
+                    alt={project?.image?.alt}
+                    className={cn("object-cover w-full")}
+                  />
+                </div>
+                <div className="flex gap-2 mt-4 items-center opacity-70">
+                  {project?.tags?.map((tag, i, arr) => (
+                    <React.Fragment key={project?.title + "-" + i + tag}>
+                      <span className="uppercase">{tag}</span>
+                      {i !== arr.length - 1 && (
+                        <div className="w-[5px] h-[5px] bg-background rounded-full" />
+                      )}
+                    </React.Fragment>
+                  ))}
+                </div>
+                <h3 className="text-[40px] group-hover:underline">
+                  {project.title}
+                </h3>
+              </div>
+            </a>
+          );
+        })}
       </div>
     </section>
   );

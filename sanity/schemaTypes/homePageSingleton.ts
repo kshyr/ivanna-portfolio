@@ -126,6 +126,14 @@ export const homePageSingleton = defineType({
                   type: "string",
                   title: "Alternative text",
                 },
+                {
+                  name: "transitionBgColor",
+                  type: "string",
+                  validation: (r) =>
+                    r
+                      .length(7)
+                      .regex(new RegExp("^#(?:[0-9a-fA-F]{3}){1,2}$"), "hex"),
+                },
               ],
             }),
             defineField({
