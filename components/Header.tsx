@@ -55,7 +55,11 @@ export default function Header({ resumePdf, email }: HeaderProps) {
           return (
             <Link
               key={navItem.title}
-              href={navItem.title === "Resume" ? resumeURL : navItem.href}
+              href={
+                navItem.title === "Resume"
+                  ? resumeURL
+                  : (navItem.href as string)
+              }
               target={navItem.title === "Resume" ? "_blank" : "_self"}
               className={cn(
                 "text-sm text-[#7E7E7E]",

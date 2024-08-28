@@ -16,7 +16,6 @@ async function getHomePageData(): Promise<HomePage> {
 
 export default async function Home() {
   const data = await getHomePageData();
-  console.log(data);
 
   return (
     <main className="flex w-full max-w-[1440px] flex-col font-sans text-base">
