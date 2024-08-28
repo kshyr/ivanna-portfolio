@@ -48,35 +48,42 @@ type CarouselProps = {
 
 function MobileCarousel({ images, onPrev, onNext, imageIndex }: CarouselProps) {
   return (
-    <motion.div className="flex justify-center items-center gap-8 ">
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={imageIndex}
-          className={cn(
-            "bg-background p-8 rounded-[40px]",
-            "aspect-video",
-            "md:min-w-[375px] md:min-h-[570px]",
-          )}
-        >
-          <motion.img
-            src={images[imageIndex]}
-            className="w-full h-full"
-            initial={{
-              opacity: 0,
-            }}
-            animate={{ opacity: 1 }}
-            exit={{
-              opacity: 0,
-            }}
-            transition={{
-              type: "tween",
-              duration: 0.4,
-              ease: "easeInOut",
-            }}
-          />
-        </motion.div>
-      </AnimatePresence>
-    </motion.div>
+    <div
+      className={cn(
+        "grid gap-8 bg-foreground text-background w-full place-items-center py-10",
+        "relative before:w-screen before:bg-foreground before:h-full before:absolute before:-z-20",
+      )}
+    >
+      <motion.div className="min-w-full flex justify-center items-center gap-8 ">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={imageIndex}
+            className={cn(
+              "bg-background p-8 rounded-[40px]",
+              "aspect-auto h-auto",
+              "min-w-full sm:min-w-[350px] md:min-w-[500px] lg:min-w-[700px] xl:min-w-[900px] 2xl:min-w-[970px]",
+            )}
+          >
+            <motion.img
+              src={images[imageIndex]}
+              className="w-full h-full"
+              initial={{
+                opacity: 0,
+              }}
+              animate={{ opacity: 1 }}
+              exit={{
+                opacity: 0,
+              }}
+              transition={{
+                type: "tween",
+                duration: 0.4,
+                ease: "easeInOut",
+              }}
+            />
+          </motion.div>
+        </AnimatePresence>
+      </motion.div>
+    </div>
   );
 }
 
@@ -87,37 +94,44 @@ function DesktopCarousel({
   imageIndex,
 }: CarouselProps) {
   return (
-    <motion.div className="max-w-md flex justify-center items-center gap-8 ">
-      <CarouselButton onClick={onPrev} />
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={imageIndex}
-          className={cn(
-            "bg-background p-8 rounded-[40px]",
-            "aspect-video",
-            "xl:min-w-[934px] 2xl:min-h-[570px]",
-          )}
-        >
-          <motion.img
-            src={images[imageIndex]}
-            className="w-full h-full"
-            initial={{
-              opacity: 0,
-            }}
-            animate={{ opacity: 1 }}
-            exit={{
-              opacity: 0,
-            }}
-            transition={{
-              type: "tween",
-              duration: 0.4,
-              ease: "easeInOut",
-            }}
-          />
-        </motion.div>
-      </AnimatePresence>
-      <CarouselButton onClick={onNext} flip />
-    </motion.div>
+    <div
+      className={cn(
+        "grid gap-8 bg-foreground text-background w-full place-items-center py-10 px-24 ",
+        "relative before:w-screen before:bg-foreground before:h-full before:absolute before:-z-20",
+      )}
+    >
+      <motion.div className="max-w-md flex justify-center items-center gap-8 ">
+        <CarouselButton onClick={onPrev} />
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={imageIndex}
+            className={cn(
+              "bg-background p-8 rounded-[40px]",
+              "aspect-auto h-auto",
+              "base:min-w-[350px] md:min-w-[500px] lg:min-w-[700px] xl:min-w-[900px] 2xl:min-w-[970px]",
+            )}
+          >
+            <motion.img
+              src={images[imageIndex]}
+              className="w-full h-full"
+              initial={{
+                opacity: 0,
+              }}
+              animate={{ opacity: 1 }}
+              exit={{
+                opacity: 0,
+              }}
+              transition={{
+                type: "tween",
+                duration: 0.4,
+                ease: "easeInOut",
+              }}
+            />
+          </motion.div>
+        </AnimatePresence>
+        <CarouselButton onClick={onNext} flip />
+      </motion.div>
+    </div>
   );
 }
 

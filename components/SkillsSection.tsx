@@ -27,14 +27,7 @@ export default function SkillsSection({
           {skillsParagraphEnd}
         </p>
       </div>
-      <div
-        className={cn(
-          "grid gap-8 bg-foreground text-background w-full place-items-center py-10 px-24 ",
-          "relative before:w-screen before:bg-foreground before:h-full before:absolute before:-z-20",
-        )}
-      >
-        <Carousel images={images ?? fallbackImages} />
-      </div>
+      <Carousel images={images ?? fallbackImages} />
     </section>
   );
 }
