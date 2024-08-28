@@ -18,5 +18,15 @@ export const structure: StructureResolver = (S) => {
             .schemaType(homePageSingletonName)
             .documentId(homePageSingletonName),
         ),
+      S.documentTypeListItem(aboutPageSingletonName)
+        .title("About")
+        .schemaType(aboutPageSingletonName)
+        .child(
+          S.editor()
+            .title("About")
+            .id(aboutPageSingletonName)
+            .schemaType(aboutPageSingletonName)
+            .documentId(aboutPageSingletonName),
+        ),
     ]);
 };

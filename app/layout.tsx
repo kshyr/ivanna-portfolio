@@ -22,7 +22,7 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <body
         className={cn(
-          "font-white flex justify-center font-sans",
+          "font-white flex justify-center font-sans overflow-x-hidden",
           fontSans.variable,
         )}
       >

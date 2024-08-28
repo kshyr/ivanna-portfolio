@@ -18,9 +18,9 @@ export default function ContactSection({
 
   const links = [
     {
-      handle: "instagram",
-      title: "Instagram",
-      url: socialLinks?.instagram,
+      handle: "gmail",
+      title: "Email me!",
+      url: `mailto:${socialLinks?.email}`,
     },
     {
       handle: "linkedin",
@@ -33,26 +33,24 @@ export default function ContactSection({
       url: socialLinks?.behance,
     },
     {
-      handle: "gmail",
-      title: "Email me!",
-      url: `mailto:${socialLinks?.email}`,
+      handle: "instagram",
+      title: "Instagram",
+      url: socialLinks?.instagram,
     },
   ];
 
   return (
-    <section className="w-full flex flex-col pb-8 pt-28">
-      <div className="flex flex-col items-center justify-center">
-        <h3 className="text-xl font-semibold">
+    <section className="w-full flex flex-col gap-8 pb-8 pt-16 px-4 lg:px-16">
+      <div className="flex flex-col items-center">
+        <h3 className="text-lg lg:text-xl font-semibold">
           Reach out to me!{" "}
-          <Image
+          <img
             src="/logo_cat_wide.svg"
             alt="logo-cat-wide"
-            width={78}
-            height={56}
-            className="inline mb-3"
+            className="inline mb-3 max-w-[50px] lg:max-w-[100px]"
           />
         </h3>
-        <p className="opacity-70 font-medium">
+        <p className="opacity-70 font-medium text-sm lg:text-base">
           This is where we start our journey together
         </p>
         <div className="flex gap-12 mt-12">
@@ -62,22 +60,24 @@ export default function ContactSection({
               href={link.url}
               target="_blank"
               rel="noopener noreferrer"
+              className="hover:underline"
             >
               <div className="flex flex-col items-center gap-3">
-                <Image
+                <img
                   src={"/" + link.handle + "-logo.png"}
                   alt={link.handle + " logo"}
-                  width={76}
-                  height={76}
+                  className="max-w-[60px] max-h-[60px]"
                 />
-                <span className="font-semibold text-sm">{link.title}</span>
+                <span className="font-semibold text-xs lg:text-sm">
+                  {link.title}
+                </span>
               </div>
             </a>
           ))}
         </div>
       </div>
-      <a href={`${resumeURL}`} target="_blank">
-        <Button className="ml-auto p-6 rounded-4xl font-bold uppercase">
+      <a href={`${resumeURL}`} target="_blank" className="w-fit ml-auto">
+        <Button className="p-6 rounded-4xl font-bold uppercase">
           Resume {">"}
         </Button>
       </a>

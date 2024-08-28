@@ -17,7 +17,7 @@ export default function ProjectsSection({
   projects,
 }: ProjectsSectionProps) {
   return (
-    <section className="w-full flex flex-col">
+    <section className="w-full flex flex-col px-4 xl:px-16">
       <div
         className={cn(
           "flex flex-col w-full items-center relative pb-10 pt-24",
@@ -26,22 +26,24 @@ export default function ProjectsSection({
           "before:scale-[0.4] before:blur-[140px] before:opacity-100",
         )}
       >
-        <h1 className="text-xl font-semibold text-center">Projects</h1>
-        <p className="text-sm max-w-[550px] text-center">
+        <h1 className="text-[36px] lg:text-xl mb-2 lg:mb-0 font-semibold text-center">
+          Projects
+        </h1>
+        <p className="text-sm lg:text-base max-w-[550px] text-center">
           <span className="opacity-70">{projectsParagraphStart}</span>{" "}
           {projectsParagraphEnd}
         </p>
       </div>
       <div
         className={cn(
-          "grid grid-cols-2 grid-rows-2 gap-8 bg-foreground text-background w-full h-[1080px] place-items-center py-10 px-24",
+          "grid grid-cols-1 lg:grid-cols-2 gap-8 bg-foreground text-background w-full place-items-center py-10 px-8",
           "relative before:w-screen before:bg-foreground before:h-full before:absolute before:-z-10",
         )}
       >
         {projects?.map((project, i) => (
           <div
             key={project?.title + "-" + i}
-            className="flex flex-col col-span-1 row-span-1 w-full h-full"
+            className="flex flex-col col-span-1 row-span-1 w-full h-full min-h-[400px]"
           >
             <div className="bg-background rounded-4xl flex items-end justify-end p-8 h-full">
               {/*project.image && (
@@ -64,7 +66,7 @@ export default function ProjectsSection({
                 </React.Fragment>
               ))}
             </div>
-            <h3 className="text-lg">{project.title}</h3>
+            <h3 className="text-[40px]">{project.title}</h3>
           </div>
         ))}
       </div>

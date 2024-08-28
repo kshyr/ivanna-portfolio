@@ -20,7 +20,10 @@ export default async function Home() {
 
   return (
     <main className="flex w-full max-w-[1440px] flex-col font-sans text-base">
-      <Header resumePdf={data.resumePdf} />
+      <Header
+        resumePdf={data.resumePdf}
+        email={data.socialLinks?.email as string}
+      />
       <HeroSection
         title={data.title}
         heroParagraph={data.heroParagraph}
@@ -36,13 +39,11 @@ export default async function Home() {
         skillsParagraphEnd={data.skillsParagraphEnd}
         skillsImages={data.skillsImages}
       />
-      <div className="px-32">
-        <ContactSection
-          socialLinks={data.socialLinks}
-          resumePdf={data.resumePdf}
-        />
-        <Footer />
-      </div>
+      <ContactSection
+        socialLinks={data.socialLinks}
+        resumePdf={data.resumePdf}
+      />
+      <Footer />
     </main>
   );
 }

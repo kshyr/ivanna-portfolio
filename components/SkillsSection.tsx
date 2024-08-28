@@ -19,10 +19,10 @@ export default function SkillsSection({
   const fallbackImages = ["/frame1.png", "/frame2.png", "/frame3.png"];
 
   return (
-    <section className="w-full flex flex-col px-16">
+    <section className="w-full flex flex-col px-4 xl:px-16">
       <div className="py-16">
         <h1 className="text-xl font-semibold">Skills</h1>
-        <p className="text-sm max-w-[550px]">
+        <p className="text-sm lg:text-base max-w-[550px]">
           <span className="opacity-70">{skillsParagraphStart}</span>{" "}
           {skillsParagraphEnd}
         </p>
