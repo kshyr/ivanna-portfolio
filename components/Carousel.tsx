@@ -102,15 +102,15 @@ function DesktopCarousel({
     >
       <motion.div className="max-w-md flex justify-center items-center gap-8 ">
         <CarouselButton onClick={onPrev} />
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={imageIndex}
-            className={cn(
-              "bg-background p-4 xl:p-8 rounded-2xl xl:rounded-[40px]",
-              "aspect-auto h-auto",
-              "min-w-[500px] md:min-w-[500px] lg:min-w-[700px] xl:min-w-[900px] 2xl:min-w-[970px]",
-            )}
-          >
+        <motion.div
+          key={imageIndex}
+          className={cn(
+            "bg-background p-4 xl:p-8 rounded-2xl xl:rounded-[40px]",
+            "aspect-auto h-auto",
+            "min-w-[500px] md:min-w-[500px] lg:min-w-[700px] xl:min-w-[900px] 2xl:min-w-[970px]",
+          )}
+        >
+          <AnimatePresence>
             <motion.img
               src={images[imageIndex]}
               className="w-full h-full min-h-[200px] lg:min-h-[350px] xl:min-h-[500px]"
@@ -127,8 +127,8 @@ function DesktopCarousel({
                 ease: "easeInOut",
               }}
             />
-          </motion.div>
-        </AnimatePresence>
+          </AnimatePresence>
+        </motion.div>
         <CarouselButton onClick={onNext} flip />
       </motion.div>
     </div>

@@ -26,6 +26,7 @@ export default async function Home() {
       <HeroSection
         title={data.title}
         heroParagraph={data.heroParagraph}
+        logoImages={data.logoImages}
         heroImages={data.heroImages}
       />
       <ProjectsSection

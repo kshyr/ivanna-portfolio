@@ -53,7 +53,7 @@ export default function ContactSection({
         <p className="opacity-70 font-medium text-sm lg:text-base">
           This is where we start our journey together
         </p>
-        <div className="flex gap-12 mt-12">
+        <div className="flex gap-6 sm:gap-8 md:gap-12 mt-12">
           {links.map((link) => (
             <a
               key={link.handle}

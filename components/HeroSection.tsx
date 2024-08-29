@@ -1,18 +1,33 @@
 import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
 import { HomePage } from "@/sanity.types";
+import VerticalAutoCarousel from "./VerticalAutoCarousel";
+import { homePageSingletonName } from "@/sanity/structure";
+import { client } from "@/sanity/lib/client";
+import Slideshow from "./Slideshow";
 
 interface HeroSectionProps {
   title: HomePage["title"];
   heroParagraph: HomePage["heroParagraph"];
   heroImages: HomePage["heroImages"];
+  logoImages: HomePage["logoImages"];
 }
 
-export default function HeroSection({
+async function getLogoUrls(): Promise<string[]> {
+  const query = `*[_type=="${homePageSingletonName}"][0]{
+    "logoUrls":projects[].asset->url
+  }`;
+  const data = await client.fetch(query);
+  return data.logoUrls;
+}
+
+export default async function HeroSection({
   title,
   heroParagraph,
   heroImages,
+  logoImages,
 }: HeroSectionProps) {
+  const logoUrls = await getLogoUrls();
   return (
     <section className="flex flex-col md:flex-row w-full justify-between px-4 xl:px-16 lg:pt-24 gap-8">
       <div className="flex gap-2 flex-col ">
@@ -37,7 +52,7 @@ export default function HeroSection({
           {heroParagraph}
         </p>
       </div>
-      <div className="rounded-4xl flex items-center md:justify-end gap-8">
+      <div className="w-full max-w-[520px] rounded-4xl flex items-center md:justify-end gap-8">
         {/*heroImages && heroImages[0] && (
           <Image
             src={urlFor(heroImages[0]).url()}
@@ -47,18 +62,10 @@ export default function HeroSection({
             className="rounded-4xl"
           />
         )*/}
-        <div className="relative max-w-full min-h-full flex items-center xl:max-w-[528px]">
-          <img
-            src="/frame2.png"
-            alt="Hero image"
-            className="rounded-lg aspect-auto"
-          />
+        <div className="h-full relative w-full max-w-full min-h-full flex items-center xl:max-w-[528px]">
+          <Slideshow slides={heroImages} />
         </div>
-        <div className="hidden sm:flex flex-col gap-4">
-          <div className="w-16 md:w-12 lg:w-16 h-16 md:h-12 lg:h-16 bg-foreground rounded-xl" />
-          <div className="w-16 md:w-12 lg:w-16 h-16 md:h-12 lg:h-16 bg-foreground rounded-xl" />
-          <div className="w-16 md:w-12 lg:w-16 h-16 md:h-12 lg:h-16 bg-foreground rounded-xl" />
-        </div>
+        <VerticalAutoCarousel logos={logoUrls} />
       </div>
     </section>
   );
