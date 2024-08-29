@@ -63,7 +63,7 @@ export default async function HeroSection({
           />
         )*/}
         <div className="h-full relative w-full max-w-full min-h-full flex items-center xl:max-w-[528px]">
-          <Slideshow slides={heroImages} />
+          <Slideshow images={[""]} />
         </div>
         <VerticalAutoCarousel logos={logoUrls} />
       </div>
