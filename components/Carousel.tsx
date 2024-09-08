@@ -80,7 +80,7 @@ function MobileCarousel({ images, onPrev, onNext, imageIndex }: CarouselProps) {
         "relative before:w-screen before:bg-foreground before:h-full before:absolute before:-z-20",
       )}
     >
-      <motion.div className="min-w-full flex justify-center items-center relative gap-8 ">
+      <motion.div className="min-w-full flex justify-center items-center relative overflow-hidden gap-8 ">
         <motion.div
           animate={{
             translateX: `-${imageIndex * 100}%`,
