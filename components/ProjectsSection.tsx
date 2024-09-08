@@ -83,10 +83,10 @@ export default async function ProjectsSection({
               target="_blank"
               className="group"
             >
-              <div className="group flex flex-col col-span-1 row-span-1 w-full h-full  max-w-xl">
+              <div className="group flex flex-col col-span-1 row-span-1 w-full h-full max-w-xl">
                 <div
                   className={cn(
-                    "group transition-colors duration-300 w-full border border-black/25 rounded-4xl flex items-end justify-end h-full",
+                    "group transition-colors duration-300 w-full border border-black/25 rounded-[20px] md:rounded-[32px] flex items-end justify-end h-full",
                     `group-hover:bg-[var(--hover-bg-color)]`,
                   )}
                   style={{ "--hover-bg-color": bgColor } as React.CSSProperties}
@@ -109,7 +109,7 @@ export default async function ProjectsSection({
                     </React.Fragment>
                   ))}
                 </div>
-                <h3 className="text-[40px] group-hover:underline">
+                <h3 className="text-lg md:text-[40px] group-hover:underline">
                   {project.title}
                 </h3>
               </div>
