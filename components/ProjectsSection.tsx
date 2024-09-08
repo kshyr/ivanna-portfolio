@@ -6,7 +6,7 @@ import React from "react";
 import { HomePage } from "@/sanity.types";
 import { isImageSource } from "@sanity/asset-utils";
 import { homePageSingletonName } from "@/sanity/structure";
-import { client } from "@/sanity/lib/client";
+import { client, sanityFetch } from "@/sanity/lib/client";
 
 interface ProjectsSectionProps {
   projectsParagraphStart: HomePage["projectsParagraphStart"];
@@ -28,7 +28,7 @@ async function getImageUrls(): Promise<ProjectImageUrlObject[]> {
     "transitionBgColors":projects[].image.transitionBgColor,
     "urls":projects[].url
   }`;
-  const data = await client.fetch(query);
+  const data = await sanityFetch({ query });
   const imageUrlObjs = data.imageUrls.map((url: string, i: number) => ({
     title: data.titles[i],
     imageUrl: url,
@@ -83,7 +83,7 @@ export default async function ProjectsSection({
               target="_blank"
               className="group"
             >
-              <div className="group flex flex-col col-span-1 row-span-1 w-full h-full min-h-[400px]">
+              <div className="group flex flex-col col-span-1 row-span-1 w-full h-full  max-w-xl">
                 <div
                   className={cn(
                     "group transition-colors duration-300 w-full border border-black/25 rounded-4xl flex items-end justify-end h-full",
@@ -100,7 +100,9 @@ export default async function ProjectsSection({
                 <div className="flex gap-2 mt-4 items-center opacity-70">
                   {project?.tags?.map((tag, i, arr) => (
                     <React.Fragment key={project?.title + "-" + i + tag}>
-                      <span className="uppercase">{tag}</span>
+                      <span className="uppercase text-xs sm:text-sm md:text-md">
+                        {tag}
+                      </span>
                       {i !== arr.length - 1 && (
                         <div className="w-[5px] h-[5px] bg-background rounded-full" />
                       )}

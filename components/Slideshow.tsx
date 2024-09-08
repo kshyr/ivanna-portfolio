@@ -9,7 +9,6 @@ const placeholders = [
 ];
 
 export default function Slideshow({ images }: { images: string[] }) {
-  images = placeholders;
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
@@ -27,7 +26,7 @@ export default function Slideshow({ images }: { images: string[] }) {
           key={images[currentImageIndex]}
           src={images[currentImageIndex]}
           alt={`Slide ${currentImageIndex}`}
-          className="absolute z-20 top-0 left-0 right-0 bottom-0 w-full h-full "
+          className="absolute z-20 top-0 left-0 right-0 bottom-0 w-full h-full object-contain"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}

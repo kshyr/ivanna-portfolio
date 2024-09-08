@@ -7,13 +7,6 @@ interface CarouselProps {
 }
 
 export default function VerticalAutoCarousel({ logos }: CarouselProps) {
-  logos = [
-    "https://placehold.co/64?text=logo1",
-    "https://placehold.co/64?text=logo2",
-    "https://placehold.co/64?text=logo3",
-    "https://placehold.co/64?text=logo4",
-    "https://placehold.co/64?text=logo5",
-  ];
   return (
     <motion.div className="overflow-hidden min-w-16 w-16 h-64 relative">
       <motion.div

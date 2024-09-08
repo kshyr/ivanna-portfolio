@@ -1,8 +1,13 @@
 "use client";
 import { useBreakpoint } from "@/lib/hooks";
 import { cn } from "@/lib/utils";
-import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useState } from "react";
+import {
+  motion,
+  AnimatePresence,
+  useMotionValue,
+  PanInfo,
+} from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import { BsCaretRightFill, BsCaretLeftFill } from "react-icons/bs";
 
 const xSpeed = 400;
@@ -15,9 +20,13 @@ export default function Carousel({ images }: { images: string[] }) {
     setDirection("left");
     setImageIndex((prev) => (prev - 1 + images.length) % images.length);
   };
-  const onNext = () => {
+  const onNext = (n?: number) => {
     setDirection("right");
-    setImageIndex((prev) => (prev + 1) % images.length);
+    if (!!n) {
+      setImageIndex(n);
+    } else {
+      setImageIndex((prev) => (prev + 1) % images.length);
+    }
   };
 
   const { isBelowMd } = useBreakpoint("md");
@@ -43,46 +52,67 @@ type CarouselProps = {
   images: string[];
   imageIndex: number;
   onPrev: () => void;
-  onNext: () => void;
+  onNext: (n?: number) => void;
 };
 
 function MobileCarousel({ images, onPrev, onNext, imageIndex }: CarouselProps) {
+  const dragEndHandler = (dragInfo: PanInfo) => {
+    const draggedDistance = dragInfo.offset.x;
+    const swipeThreshold = 100;
+    if (draggedDistance > swipeThreshold) {
+      imageIndex > 0 && onPrev();
+    } else if (draggedDistance < -swipeThreshold) {
+      if (imageIndex + 1 < images.length) {
+        onNext();
+      } else {
+        onNext(0);
+      }
+    }
+  };
+
+  const constraintsRef = useRef(null);
+
   return (
     <div
+      ref={constraintsRef}
       className={cn(
         "grid gap-8 bg-foreground text-background w-full place-items-center py-10",
         "relative before:w-screen before:bg-foreground before:h-full before:absolute before:-z-20",
       )}
     >
-      <motion.div className="min-w-full flex justify-center items-center gap-8 ">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={imageIndex}
-            className={cn(
-              "bg-background p-8 rounded-[40px]",
-              "aspect-auto h-auto",
-              "min-w-full sm:min-w-[350px] md:min-w-[500px] lg:min-w-[700px] xl:min-w-[900px] 2xl:min-w-[970px]",
-            )}
-          >
-            <motion.img
-              src={images[imageIndex]}
-              className="w-full h-full"
-              initial={{
-                opacity: 0,
-              }}
-              animate={{ opacity: 1 }}
-              exit={{
-                opacity: 0,
-              }}
-              transition={{
-                type: "tween",
-                duration: 0.4,
-                ease: "easeInOut",
-              }}
-            />
-          </motion.div>
-        </AnimatePresence>
+      <motion.div className="min-w-full flex justify-center items-center relative overflow-hidden gap-8 ">
+        <motion.div
+          style={{
+            width: `${images.length * 100}%`,
+          }}
+          animate={{
+            x: `-${imageIndex * 100}%`,
+          }}
+          drag="x"
+          dragElastic={1}
+          dragConstraints={constraintsRef}
+          onDragEnd={(_, dragInfo: PanInfo) => dragEndHandler(dragInfo)}
+          className="flex"
+        >
+          {/* ↓ Slides map */}
+          {images.map((image, imageIndex) => (
+            <div className="min-w-full" key={image + imageIndex}>
+              <img src={image} className="object-cover pointer-events-none" />
+            </div>
+          ))}
+        </motion.div>
       </motion.div>
+      <div className="flex justify-center gap-4">
+        {images.map((_, i) => (
+          <div
+            key={i}
+            className={cn(
+              "w-2 h-2 bg-[#AAB5D2] rounded-full transition-transform duration-150",
+              i === imageIndex && "bg-[#4A77E2] scale-150",
+            )}
+          />
+        ))}
+      </div>
     </div>
   );
 }

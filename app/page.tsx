@@ -4,13 +4,13 @@ import Header from "@/components/Header";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import SkillsSection from "@/components/SkillsSection";
-import { client } from "@/sanity/lib/client";
+import { client, sanityFetch } from "@/sanity/lib/client";
 import { homePageSingletonName } from "@/sanity/structure";
 import { HomePage } from "@/sanity.types";
 
 async function getHomePageData(): Promise<HomePage> {
   const query = `*[_type == "${homePageSingletonName}"][0]`;
-  const data = await client.fetch(query);
+  const data = await sanityFetch({ query });
   return data;
 }
 

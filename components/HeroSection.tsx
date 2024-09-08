@@ -3,8 +3,9 @@ import { urlFor } from "@/sanity/lib/image";
 import { HomePage } from "@/sanity.types";
 import VerticalAutoCarousel from "./VerticalAutoCarousel";
 import { homePageSingletonName } from "@/sanity/structure";
-import { client } from "@/sanity/lib/client";
+import { client, sanityFetch } from "@/sanity/lib/client";
 import Slideshow from "./Slideshow";
+import { groq } from "next-sanity";
 
 interface HeroSectionProps {
   title: HomePage["title"];
@@ -14,11 +15,19 @@ interface HeroSectionProps {
 }
 
 async function getLogoUrls(): Promise<string[]> {
-  const query = `*[_type=="${homePageSingletonName}"][0]{
-    "logoUrls":projects[].asset->url
+  const query = groq`*[_type=="${homePageSingletonName}"][0]{
+    "logoUrls":logoImages[].asset->url
   }`;
-  const data = await client.fetch(query);
+  const data = await sanityFetch({ query });
   return data.logoUrls;
+}
+
+async function getHeroImages(): Promise<string[]> {
+  const query = groq`*[_type=="${homePageSingletonName}"][0]{
+    "heroImageUrls":heroImages[].asset->url
+  }`;
+  const data = await sanityFetch({ query });
+  return data.heroImageUrls;
 }
 
 export default async function HeroSection({
@@ -28,6 +37,7 @@ export default async function HeroSection({
   logoImages,
 }: HeroSectionProps) {
   const logoUrls = await getLogoUrls();
+  const heroImageUrls = await getHeroImages();
   return (
     <section className="flex flex-col md:flex-row w-full justify-between px-4 xl:px-16 lg:pt-24 gap-8">
       <div className="flex gap-2 flex-col ">
@@ -63,7 +73,7 @@ export default async function HeroSection({
           />
         )*/}
         <div className="h-full relative w-full max-w-full min-h-full flex items-center xl:max-w-[528px]">
-          <Slideshow images={[""]} />
+          <Slideshow images={heroImageUrls} />
         </div>
         <VerticalAutoCarousel logos={logoUrls} />
       </div>

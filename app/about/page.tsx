@@ -1,6 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { client } from "@/sanity/lib/client";
+import { client, sanityFetch } from "@/sanity/lib/client";
 import {
   aboutPageSingletonName,
   homePageSingletonName,
@@ -19,9 +19,9 @@ async function getAboutPageData(): Promise<
   }
 > {
   const query = `*[_type == "${aboutPageSingletonName}"][0]`;
-  const data = await client.fetch(query);
+  const data = await sanityFetch({ query });
   const homePageQuery = `*[_type == "${homePageSingletonName}"][0]{resumePdf, title, "email": socialLinks.email}`;
-  const homePageData = await client.fetch(homePageQuery);
+  const homePageData = await sanityFetch({ query: homePageQuery });
   return { ...data, ...homePageData };
 }
 
