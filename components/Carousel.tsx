@@ -58,7 +58,7 @@ type CarouselProps = {
 function MobileCarousel({ images, onPrev, onNext, imageIndex }: CarouselProps) {
   const dragEndHandler = (dragInfo: PanInfo) => {
     const draggedDistance = dragInfo.offset.x;
-    const swipeThreshold = 100;
+    const swipeThreshold = 50;
     if (draggedDistance > swipeThreshold) {
       imageIndex > 0 && onPrev();
     } else if (draggedDistance < -swipeThreshold) {
@@ -80,19 +80,17 @@ function MobileCarousel({ images, onPrev, onNext, imageIndex }: CarouselProps) {
         "relative before:w-screen before:bg-foreground before:h-full before:absolute before:-z-20",
       )}
     >
-      <motion.div className="min-w-full flex justify-center items-center relative overflow-hidden gap-8 ">
+      <motion.div className="min-w-full flex justify-center items-center relative gap-8 ">
         <motion.div
-          style={{
-            width: `${images.length * 100}%`,
-          }}
           animate={{
-            x: `-${imageIndex * 100}%`,
+            translateX: `-${imageIndex * 100}%`,
           }}
           drag="x"
           dragElastic={1}
           dragConstraints={constraintsRef}
           onDragEnd={(_, dragInfo: PanInfo) => dragEndHandler(dragInfo)}
           className="flex"
+          dragSnapToOrigin
         >
           {/* ↓ Slides map */}
           {images.map((image, imageIndex) => (
